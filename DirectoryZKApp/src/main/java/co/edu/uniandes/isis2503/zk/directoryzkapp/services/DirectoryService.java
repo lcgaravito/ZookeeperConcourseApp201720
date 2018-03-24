@@ -33,7 +33,8 @@ public class DirectoryService {
     private static DirectoryLogic directoryLogic;
 
     public DirectoryService() {
-        directoryLogic = new DirectoryLogic();
+        if(directoryLogic == null)
+            directoryLogic = new DirectoryLogic();
     }
 
     @POST
@@ -52,7 +53,7 @@ public class DirectoryService {
             return Response.status(500).header("Access-Control-Allow-Origin", "*").entity("We found errors in your query, please contact the Web Admin.").build();
         }
     }
-    
+
     @GET
     @Path("/microservice={microserviceName}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -71,7 +72,7 @@ public class DirectoryService {
             return Response.status(500).header("Access-Control-Allow-Origin", "*").entity("We found errors in your query, please contact the Web Admin.").build();
         }
     }
-    
+
     @GET
     @Path("/microservices")
     @Produces(MediaType.APPLICATION_JSON)
@@ -89,7 +90,7 @@ public class DirectoryService {
             return Response.status(500).header("Access-Control-Allow-Origin", "*").entity("We found errors in your query, please contact the Web Admin.").build();
         }
     }
-    
+
     @GET
     @Path("/microservice='{microservice}'&id='{id}'")
     @Produces(MediaType.APPLICATION_JSON)
@@ -108,7 +109,7 @@ public class DirectoryService {
             return Response.status(500).header("Access-Control-Allow-Origin", "*").entity("We found errors in your query, please contact the Web Admin.").build();
         }
     }
-    
+
     @DELETE
     @Path("/microservice={microservice}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -126,8 +127,10 @@ public class DirectoryService {
             return Response.status(500).header("Access-Control-Allow-Origin", "*").entity("We found errors in your query, please contact the Web Admin.").build();
         }
     }
-    
+
     public static DirectoryLogic getDirectoryLogic(){
+        if(directoryLogic == null)
+            directoryLogic = new DirectoryLogic();
         return directoryLogic;
     }
 }
