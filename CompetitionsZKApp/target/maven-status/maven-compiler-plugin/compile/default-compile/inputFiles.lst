@@ -1,11 +1,8 @@
-C:\Users\Asistente\Downloads\10. Lab Zookeeper\ZookeeperConcourseApp-master\CompetitionsZKApp\src\main\java\co\edu\uniandes\isis2503\zk\competition\persistences\CompetitionPersistence.java
-C:\Users\Asistente\Downloads\10. Lab Zookeeper\ZookeeperConcourseApp-master\CompetitionsZKApp\src\main\java\co\edu\uniandes\isis2503\zk\competition\services\CompetitionServices.java
-C:\Users\Asistente\Downloads\10. Lab Zookeeper\ZookeeperConcourseApp-master\CompetitionsZKApp\src\main\java\co\edu\uniandes\isis2503\zk\competition\coordination\MicroserviceDTO.java
-C:\Users\Asistente\Downloads\10. Lab Zookeeper\ZookeeperConcourseApp-master\CompetitionsZKApp\src\main\java\co\edu\uniandes\isis2503\zk\competition\models\dtos\CompetitionDTO.java
-C:\Users\Asistente\Downloads\10. Lab Zookeeper\ZookeeperConcourseApp-master\CompetitionsZKApp\src\main\java\co\edu\uniandes\isis2503\zk\competition\models\converter\CompetitionConverter.java
-C:\Users\Asistente\Downloads\10. Lab Zookeeper\ZookeeperConcourseApp-master\CompetitionsZKApp\src\main\java\co\edu\uniandes\isis2503\zk\competition\models\CompetitionLogic.java
-C:\Users\Asistente\Downloads\10. Lab Zookeeper\ZookeeperConcourseApp-master\CompetitionsZKApp\src\main\java\co\edu\uniandes\isis2503\zk\competition\models\CompetitorLogic.java
-C:\Users\Asistente\Downloads\10. Lab Zookeeper\ZookeeperConcourseApp-master\CompetitionsZKApp\src\main\java\co\edu\uniandes\isis2503\zk\competition\models\entities\Competition.java
-C:\Users\Asistente\Downloads\10. Lab Zookeeper\ZookeeperConcourseApp-master\CompetitionsZKApp\src\main\java\co\edu\uniandes\isis2503\zk\competition\main\Main.java
-C:\Users\Asistente\Downloads\10. Lab Zookeeper\ZookeeperConcourseApp-master\CompetitionsZKApp\src\main\java\co\edu\uniandes\isis2503\zk\competition\models\dtos\CompetitorDTO.java
-C:\Users\Asistente\Downloads\10. Lab Zookeeper\ZookeeperConcourseApp-master\CompetitionsZKApp\src\main\java\co\edu\uniandes\isis2503\zk\competition\coordination\MicroserviceRegistrar.java
+C:\Users\lc.garavito\Documents\09_Lab_Zookeeper\ZookeeperConcourseApp201720\CompetitionsZKApp\src\main\java\co\edu\uniandes\isis2503\zk\competition\main\Main.java
+C:\Users\lc.garavito\Documents\09_Lab_Zookeeper\ZookeeperConcourseApp201720\CompetitionsZKApp\src\main\java\co\edu\uniandes\isis2503\zk\competition\persistences\CompetitionPersistence.java
+C:\Users\lc.garavito\Documents\09_Lab_Zookeeper\ZookeeperConcourseApp201720\CompetitionsZKApp\src\main\java\co\edu\uniandes\isis2503\zk\competition\services\CompetitionServices.java
+C:\Users\lc.garavito\Documents\09_Lab_Zookeeper\ZookeeperConcourseApp201720\CompetitionsZKApp\src\main\java\co\edu\uniandes\isis2503\zk\competition\models\entities\Competition.java
+C:\Users\lc.garavito\Documents\09_Lab_Zookeeper\ZookeeperConcourseApp201720\CompetitionsZKApp\src\main\java\co\edu\uniandes\isis2503\zk\competition\models\converter\CompetitionConverter.java
+C:\Users\lc.garavito\Documents\09_Lab_Zookeeper\ZookeeperConcourseApp201720\CompetitionsZKApp\src\main\java\co\edu\uniandes\isis2503\zk\competition\models\dtos\CompetitionDTO.java
+C:\Users\lc.garavito\Documents\09_Lab_Zookeeper\ZookeeperConcourseApp201720\CompetitionsZKApp\src\main\java\co\edu\uniandes\isis2503\zk\competition\models\CompetitionLogic.java
+C:\Users\lc.garavito\Documents\09_Lab_Zookeeper\ZookeeperConcourseApp201720\CompetitionsZKApp\src\main\java\co\edu\uniandes\isis2503\zk\competition\models\dtos\CompetitorDTO.java
