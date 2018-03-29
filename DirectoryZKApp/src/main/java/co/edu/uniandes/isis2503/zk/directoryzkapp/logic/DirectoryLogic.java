@@ -64,9 +64,33 @@ public class DirectoryLogic implements Closeable {
      */
     private List<ServiceInstance<Microservice>> currentInstances;
 
-    public DirectoryLogic() {
+    public DirectoryLogic()
+    {
+        try {
+                    microservicesProviders = new HashMap();
+                    connectedMicroservices = new ArrayList();
+                    currentInstances = new ArrayList();
 
-    }
+                    JsonInstanceSerializer<Microservice> serializer = new JsonInstanceSerializer(Microservice.class);
+                    appServiceDiscovery = ServiceDiscoveryBuilder
+                            .builder(Microservice.class)
+                            .client(ZookeeperConnection.getZooKeeperClient())
+                            .basePath(APP_PATH)
+                            .serializer(serializer)
+                            .build();
+                    appServiceDiscovery.start();
+
+                    MicroserviceDTO microservice = new MicroserviceDTO(APP_PATH, SERVER, ID, SERVER, PORT, "", TYPE, MicroserviceDTO.STATUS_UP);
+                    UriSpec uriSpec = new UriSpec("http://" + microservice.getServer() + ":" + microservice.getPort() + APP_PATH + microservice.getPath());
+                    ServiceInstance<Microservice> microserviceInstance = new ServiceInstance(microservice.getAppName(), microservice.getMicroserviceId(), microservice.getServer(), microservice.getPort(), Integer.SIZE, microservice.toString(), new Date().getTime(), ServiceType.valueOf(microservice.getType()), uriSpec);
+                    MicroserviceConnection microserviceConnection = new MicroserviceConnection(microserviceInstance, microservice.getPath(), microservice.getMicroserviceName(), microservice.getMicroserviceId());
+                    microserviceConnection.start();
+                    connectedMicroservices.add(microserviceConnection);
+                    loadCurrentInstances();
+                } catch (Exception ex) {
+                    Logger.getLogger(DirectoryLogic.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
 
     private void loadCurrentInstances() {
         try {
@@ -80,20 +104,84 @@ public class DirectoryLogic implements Closeable {
         }
     }
 
-    public boolean addNewMicroservice(MicroserviceDTO microservice) {
-        return false;
-    }
+    public boolean addNewMicroservice(MicroserviceDTO microservice) 
+    {
+        ServiceInstance<Microservice> microserviceInstance = ConverterTool.convertMicroserviceDtoTOServiceInstance(microservice);
+ 
+        try {
+            MicroserviceConnection microserviceConnection = new MicroserviceConnection(
+                    microserviceInstance,
+                    APP_PATH,
+                    microservice.getMicroserviceName(),
+                    microservice.getMicroserviceId()
+            );
+            microserviceConnection.start();
+            connectedMicroservices.add(microserviceConnection);
+            return true;
+        } catch (Exception ex) {
+            Logger.getLogger(DirectoryLogic.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }    }
 
     public boolean removeMicroservice(String microserviceNamed) {
-        return false;
+          Boolean result = false;
+        try {
+            Collection<ServiceInstance<Microservice>> instances = getAllMicroservicesInstances(microserviceNamed);
+            if(!instances.isEmpty()){
+                for(ServiceInstance<Microservice> instance : instances){
+                    ZookeeperConnection.getZooKeeperClient().delete().forPath(APP_PATH+"/"+microserviceNamed+"/"+instance.getId());
+                }
+            }
+            ZookeeperConnection.getZooKeeperClient().delete().forPath(APP_PATH+"/"+microserviceNamed);
+            loadCurrentInstances();
+            result = true;
+        } catch (Exception ex) {
+            Logger.getLogger(DirectoryLogic.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
     }
 
-    public ServiceInstance<Microservice> getMicroservice(String microserviceName) {
-        return null;
+    public ServiceInstance<Microservice> getMicroservice(String microserviceName) 
+    {
+        try {
+            ServiceProvider<Microservice> provider = getMicroserviceProvider(microserviceName);
+ 
+            if (provider != null) {
+                return provider.getInstance();
+            } else {
+                return null;
+            }
+ 
+        } catch (Exception ex) {
+            Logger.getLogger(DirectoryLogic.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
 
     public ServiceInstance<Microservice> getMicroserviceInstanceById(String microserviceName, String microserviceId) {
-        return null;
+        try {
+            ServiceProvider<Microservice> provider = getMicroserviceProvider(microserviceName);
+ 
+            if (provider != null) {
+                Iterator<ServiceInstance<Microservice>> microserviceInstances = provider.getAllInstances().iterator();
+                Boolean found = false;
+                ServiceInstance<Microservice> microserviceInstance = null;
+                while (microserviceInstances.hasNext() && found != true) {
+                    ServiceInstance<Microservice> instance = microserviceInstances.next();
+                    if (instance.getId().equals(microserviceId)) {
+                        found = null;
+                        microserviceInstance = instance;
+                    }
+                }
+                return microserviceInstance;
+            } else {
+                return null;
+            }
+ 
+        } catch (Exception ex) {
+            Logger.getLogger(DirectoryLogic.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
 
     public Collection<String> getAllNames() throws Exception {

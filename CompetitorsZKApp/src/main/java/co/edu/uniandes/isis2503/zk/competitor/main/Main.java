@@ -23,6 +23,7 @@
  */
 package co.edu.uniandes.isis2503.zk.competitor.main;
 
+import co.edu.uniandes.isis2503.zk.competitor.coordination.MicroserviceRegistrar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.eclipse.jetty.server.Server;
@@ -39,7 +40,7 @@ public class Main {
             String webappDirLocation = "src/main/webapp/";
             String webPort = System.getenv("PORT");
             if (webPort == null || webPort.isEmpty()) {
-                webPort = "8081";
+                webPort = MicroserviceRegistrar.MICROSERVICE_PORT + "";
             }
             Server server = new Server(Integer.valueOf(webPort));
             WebAppContext root = new WebAppContext();
@@ -48,6 +49,9 @@ public class Main {
             root.setResourceBase(webappDirLocation);
             root.setParentLoaderPriority(true);
             server.setHandler(root);
+            
+            MicroserviceRegistrar.registerMicroservice();
+            MicroserviceRegistrar.startHeartbeat(); 
 
             server.start();
             server.join();
